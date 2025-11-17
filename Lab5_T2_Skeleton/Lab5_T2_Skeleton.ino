@@ -1,15 +1,13 @@
 /*Change all the ? in the code and add code in ??? to Control 2 DC Motors.*/
 
-#define PWM1 14
 #define IN1   27  // Replace the ? with the GPIO pin you selected to connect IN1
 #define IN2   32   // Replace the ? with the GPIO pin you selected to connect IN2
 #define AL  34 // Replace the ? with the GPIO pin you selected to connect encoder A of Motor L
 #define BL  35// Replace the ? with the GPIO pin you selected to connect encoder B of Motor L
 
-#define PWM2 19
 #define IN3  16   // Replace the ? with the GPIO pin you selected to connect IN3
 #define IN4   17   // Replace the ? with the GPIO pin you selected to connect IN4
-#define AR  12// Replace the ? with the GPIO pin you selected to connect encoder A of Motor R
+#define AR  36// Replace the ? with the GPIO pin you selected to connect encoder A of Motor R
 #define BR 13// Replace the ? with the GPIO pin you selected to connect encoder B of Motor R
 
 
@@ -33,8 +31,8 @@ void setup() {
    pinMode(IN3,OUTPUT);
    pinMode(IN4,OUTPUT);
 
-  //digitalWrite(,HIGH);
-  //digitalWrite(PWM2,LOW);
+
+
 
 
 }
@@ -54,24 +52,24 @@ void loop() {
       } 
     else if (command == "B") 
     { // Move Backward 
-      digitalWrite(IN2,HIGH);
       digitalWrite(IN1,LOW);
+      digitalWrite(IN2,HIGH);
+      digitalWrite(IN3,LOW);
       digitalWrite(IN4,HIGH);
-      digitalWrite(IN3,HIGH);
       } 
     else if (command == "R") 
     { // Turn right 
     digitalWrite(IN1,HIGH);
     digitalWrite(IN2,LOW);
-    digitalWrite(IN3,LOW);
-    digitalWrite(IN4,HIGH);
+    digitalWrite(IN3,LOW); 
+    digitalWrite(IN4,LOW);
     } 
     else if (command == "L") { 
     // Turn left 
-    digitalWrite(IN2,HIGH);
     digitalWrite(IN1,LOW);
-    digitalWrite(IN4,LOW);
+    digitalWrite(IN2,LOW);
     digitalWrite(IN3,HIGH);
+    digitalWrite(IN4,LOW);
    } 
   else if (command == "S") { 
     // Stop 
@@ -87,13 +85,19 @@ void loop() {
      AR_data=digitalRead(AR);
      BR_data=digitalRead(BR);
     // Plot A and B of both Motor L and R in Serial Plotter
-    Serial.print("AL");
-    Serial.print(AL_data);
-    Serial.print("BL");
-    Serial.print(BL_data);
-    Serial.print("AR");
-    Serial.print(AR_data);
-    Serial.print("BR");
-    Serial.print(BR_data);
+        Serial.print("AL:");
+        Serial.print(AL_data);
+        Serial.print(",");
+        Serial.print("BL:");
+        Serial.print(BL_data);
+        Serial.println("\t"); 
+
+        Serial.print("AR:");
+        Serial.print(AR_data);
+        Serial.print(",");
+        Serial.print("BR:");
+        Serial.print(BR_data);
+        Serial.println("\t"); 
+
     
 }
